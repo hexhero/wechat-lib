@@ -1,0 +1,5 @@
+debug: true
+wechat:
+  url: https://api.weixin.qq.com
+
+
