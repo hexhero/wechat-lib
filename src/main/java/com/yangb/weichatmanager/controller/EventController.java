@@ -1,8 +1,9 @@
 package com.yangb.weichatmanager.controller;
 
 import com.yangb.weichatmanager.bean.VerifyServer;
-import com.yangb.weichatmanager.bean.WeChatEvent;
-import org.springframework.stereotype.Controller;
+import com.yangb.weichatmanager.bean.event.EventMsg;
+import com.yangb.weichatmanager.management.DispatcherManagement;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -11,22 +12,24 @@ import org.springframework.web.bind.annotation.*;
  * Copyright © 2017 YangBin. All rights reserved.
  */
 @RestController
-@RequestMapping("/wechatmanager/event")
+@RequestMapping("/wechatmanager/access")
 public class EventController {
 
+    @Autowired
+    private DispatcherManagement dispatcher;
+
     /**
-     * 消息/事件接收与响应
-     * @param value
+     * 消息/事件分发与响应
+     * @param content
      * @return
      */
-    @PostMapping
-    public WeChatEvent msgEvent(WeChatEvent value){
-
-        return null;
+    @PostMapping(headers = {"Content-Type=text/xml","Content-Type=application/xml"})
+    public EventMsg msgEvent(@RequestBody String content){
+        return dispatcher.dispatch(content);
     }
 
     /**
-     * 微信服务器接入
+     * 微信服务器接入响应事件
      * @param server
      * @return
      */

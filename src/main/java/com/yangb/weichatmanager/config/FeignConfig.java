@@ -2,6 +2,7 @@ package com.yangb.weichatmanager.config;
 
 import com.netflix.hystrix.HystrixCommandProperties;
 import com.yangb.weichatmanager.service.WeChatHttpByFeign;
+import feign.Logger;
 import feign.hystrix.HystrixFeign;
 import feign.hystrix.SetterFactory;
 import feign.jackson.JacksonDecoder;
@@ -30,6 +31,8 @@ public class FeignConfig {
                         new SetterFactory.Default().create(target, method).
                                 andCommandPropertiesDefaults(HystrixCommandProperties.defaultSetter().
                                         withExecutionTimeoutInMilliseconds(10000)))
+                .logLevel(Logger.Level.FULL)
+                .logger(new Logger.JavaLogger().appendToFile("D:\\fegin.log"))
                 .target(WeChatHttpByFeign.class, this.wechatUrl);
 
     }

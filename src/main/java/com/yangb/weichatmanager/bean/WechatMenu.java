@@ -53,10 +53,14 @@ public class WechatMenu {
         }
     }
 
-    public static class ConditionalMenu{
+    public static class ConditionalMenu extends WechatResult{
         public List<Button> button;
         public Matchrule matchrule;
-        public Long menuid;
+        public String menuid;
+
+        public void setMenuid(String menuid) {
+            this.menuid = menuid;
+        }
 
         public void setButton(List<Button> button) {
             this.button = button;
@@ -66,17 +70,24 @@ public class WechatMenu {
             this.matchrule = matchrule;
         }
 
-        public void setMenuid(Long menuid) {
-            this.menuid = menuid;
-        }
     }
 
     public static class Matchrule{
         public Integer group_id;
         public Integer sex;
         public String country;
+        public String province;
         public String city;
         public String client_platform_type;
+        public String tag_id;
+
+        public void setProvince(String province) {
+            this.province = province;
+        }
+
+        public void setTag_id(String tag_id) {
+            this.tag_id = tag_id;
+        }
 
         public void setGroup_id(Integer group_id) {
             this.group_id = group_id;
