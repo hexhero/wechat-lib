@@ -1,6 +1,6 @@
-# Wechat Official Accounts Develop Template -Springboot 
+# Wechat Official Accounts Develop Template -Springboot 😛
 
-基于`Springboot` 的微信公众号🔥开发模板.😛
+基于`Springboot` 的微信公众号🔥开发模板.
 
 ## 主要功能和开发进度  
 - [x] 服务器认证接口  
