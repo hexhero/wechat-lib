@@ -12,16 +12,32 @@ public class WechatMenu {
     /**
      * 普通菜单
      */
-    public WechatMenu menu;
+    private WechatMenu menu;
 
     /**
      * 个性化菜单
      */
-    public List<ConditionalMenu> conditionalmenu;
+    private List<ConditionalMenu> conditionalmenu;
 
-    public List<Button> button;
+    private List<Button> button;
 
-    public Long menuid;
+    private Long menuid;
+
+    public WechatMenu getMenu() {
+        return menu;
+    }
+
+    public List<ConditionalMenu> getConditionalmenu() {
+        return conditionalmenu;
+    }
+
+    public List<Button> getButton() {
+        return button;
+    }
+
+    public Long getMenuid() {
+        return menuid;
+    }
 
     public void setMenu(WechatMenu menu) {
         this.menu = menu;
@@ -40,9 +56,9 @@ public class WechatMenu {
     }
 
     public static class Button{
-        public String name = "default";
+        private String name = "default";
 
-        public List<Button> sub_button;
+        private List<Button> sub_button;
 
         public void setName(String name) {
             this.name = name;
@@ -51,12 +67,20 @@ public class WechatMenu {
         public void setSub_button(List<Button> sub_button) {
             this.sub_button = sub_button;
         }
+
+        public String getName() {
+            return name;
+        }
+
+        public List<Button> getSub_button() {
+            return sub_button;
+        }
     }
 
     public static class ConditionalMenu extends WechatResult{
-        public List<Button> button;
-        public Matchrule matchrule;
-        public String menuid;
+        private List<Button> button;
+        private Matchrule matchrule;
+        private String menuid;
 
         public void setMenuid(String menuid) {
             this.menuid = menuid;
@@ -70,16 +94,55 @@ public class WechatMenu {
             this.matchrule = matchrule;
         }
 
+        public List<Button> getButton() {
+            return button;
+        }
+
+        public Matchrule getMatchrule() {
+            return matchrule;
+        }
+
+        public String getMenuid() {
+            return menuid;
+        }
     }
 
     public static class Matchrule{
-        public Integer group_id;
-        public Integer sex;
-        public String country;
-        public String province;
-        public String city;
-        public String client_platform_type;
-        public String tag_id;
+        private Integer group_id;
+        private Integer sex;
+        private String country;
+        private String province;
+        private String city;
+        private String client_platform_type;
+        private String tag_id;
+
+        public Integer getGroup_id() {
+            return group_id;
+        }
+
+        public Integer getSex() {
+            return sex;
+        }
+
+        public String getCountry() {
+            return country;
+        }
+
+        public String getProvince() {
+            return province;
+        }
+
+        public String getCity() {
+            return city;
+        }
+
+        public String getClient_platform_type() {
+            return client_platform_type;
+        }
+
+        public String getTag_id() {
+            return tag_id;
+        }
 
         public void setProvince(String province) {
             this.province = province;

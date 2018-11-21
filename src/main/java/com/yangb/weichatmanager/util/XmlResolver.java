@@ -16,6 +16,7 @@ public class XmlResolver {
 
     static {
         xStream = new XStream();
+        XStream.setupDefaultSecurity(xStream);
         xStream.ignoreUnknownElements();
 
         xStream.alias("xml", EventMsg.class);

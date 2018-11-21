@@ -1,8 +1,8 @@
 package com.yangb.weichatmanager.service;
 
-import com.google.gson.Gson;
 import com.yangb.weichatmanager.bean.WechatMenu;
 import com.yangb.weichatmanager.bean.WechatResult;
+import feign.jackson.JacksonDecoder;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -16,46 +16,39 @@ public class MenuServiceTests {
      */
     @Test
     public void testCreateMenu() {
-        WechatMenu wechaMenu = new WechatMenu();
-
-        wechaMenu.button = new ArrayList<>();
-
-        wechaMenu.button.add(new WechatMenu.Button(){
+        WechatMenu menu = new WechatMenu();
+        menu.setButton(new ArrayList<>());
+        menu.getButton().add(new WechatMenu.Button(){
             {
-                name = "杨斌测试";
+                setName("misyang");
             }
             public String type = "click";
-            public String key = "V1001_TODAY_MUSIC";
+            public String key = "V100123";
         });
-
-        wechaMenu.button.add(new WechatMenu.Button(){
-
+        menu.getButton().add(new WechatMenu.Button(){
             {
-                name = "菜单";
-                sub_button = new ArrayList<>();
-                sub_button.add(new WechatMenu.Button(){
+                setName("个");
+
+                setSub_button(new ArrayList<>());
+                getSub_button().add(new WechatMenu.Button(){
                     {
-                        name = "搜索";
-                    }
-                    public String type = "view";
-                    public String url = "http://www.soso.com/";
-                });
-                sub_button.add(new WechatMenu.Button(){
-                    {
-                        name = "赞一下我们";
+                        setName("性");
                     }
                     public String type = "click";
-                    public String key = "V1001_GOOD";
+                    public String key = "V100124";
                 });
-
+                getSub_button().add(new WechatMenu.Button(){
+                    {
+                        setName("化");
+                    }
+                    public String type = "click";
+                    public String key = "V100125";
+                });
             }
-
         });
-        Gson gson = new Gson();
-        String json = gson.toJson(wechaMenu);
-        System.out.println(json);
 
-        menuService.create(wechaMenu);
+
+        menuService.create(menu);
     }
 
     /**
@@ -64,7 +57,6 @@ public class MenuServiceTests {
     @Test
     public void testQueryMenu(){
         WechatMenu wechatMenu = menuService.query();
-        System.out.println(new Gson().toJson(wechatMenu));
     }
 
     /**
@@ -73,45 +65,45 @@ public class MenuServiceTests {
     @Test
     public void testAddconditional(){
         WechatMenu.ConditionalMenu menu = new WechatMenu.ConditionalMenu();
-        menu.button = new ArrayList<>();
-        menu.button.add(new WechatMenu.Button(){
+        menu.setButton(new ArrayList<>());
+        menu.getButton().add(new WechatMenu.Button(){
             {
-                name = "个性化";
+                setName("misyang");
             }
             public String type = "click";
             public String key = "V100123";
         });
-        menu.button.add(new WechatMenu.Button(){
+        menu.getButton().add(new WechatMenu.Button(){
             {
-                name = "个";
+                setName("个");
 
-                sub_button = new ArrayList<>();
-                sub_button.add(new WechatMenu.Button(){
+                setSub_button(new ArrayList<>());
+                getSub_button().add(new WechatMenu.Button(){
                     {
-                        name = "性";
+                        setName("性");
                     }
                     public String type = "click";
                     public String key = "V100124";
                 });
-                sub_button.add(new WechatMenu.Button(){
+                getSub_button().add(new WechatMenu.Button(){
                     {
-                        name = "化";
+                        setName("化");
                     }
                     public String type = "click";
                     public String key = "V100125";
                 });
             }
         });
-        menu.matchrule = new WechatMenu.Matchrule(){
+        menu.setMatchrule( new WechatMenu.Matchrule(){
             {
-                country = "中国";
-                province = "浙江";
-                city = "杭州";
+                setCountry("中国");
+                setProvince("浙江");
+                setCity("杭州");
             }
-        };
-
+        });
+        JacksonDecoder decoder = new JacksonDecoder();
         WechatMenu.ConditionalMenu conditionalMenu = menuService.addConditional(menu);
-        System.out.println(conditionalMenu.menuid);
+        System.out.println(conditionalMenu.getMenuid());
     }
 
     /**
