@@ -30,6 +30,11 @@ public class WechatConstant {
     public static final String EVENT_TYPE_PIC_PHOTO_OR_ALBUM = "pic_photo_or_album";
     public static final String EVENT_TYPE_PIC_WEIXIN = "pic_weixin";
     public static final String EVENT_TYPE_LOCATION_SELECT = "location_select";
+    public static final String EVENT_TYPE_SUBSCRIBE = "subscribe";
+    public static final String EVENT_TYPE_UNSUBSCRIBE = "unsubscribe";
+    public static final String EVENT_TYPE_LOCATION = "LOCATION";
+
+
 
 
 

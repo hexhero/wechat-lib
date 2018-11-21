@@ -21,7 +21,7 @@ public interface EventHandler {
      * @param event
      * @return
      */
-    EventMsg menuView(MenuClickEvent event);
+    void menuView(MenuClickEvent event);
 
     /**
      * 扫码推事件的事件推送
@@ -64,5 +64,24 @@ public interface EventHandler {
      * @return
      */
     EventMsg menuLocationSelect(MenuLocationEvent event);
+
+    /**
+     * 关注事件
+     * @param event
+     * @return
+     */
+    EventMsg subscrib(EventMsg event);
+
+    /**
+     * 取消关注事件
+     * @param event
+     */
+    void unsubscrib(EventMsg event);
+
+    /**
+     * 上报地理位置事件
+     * @param event
+     */
+    void location(LocationEvent event);
 
 }

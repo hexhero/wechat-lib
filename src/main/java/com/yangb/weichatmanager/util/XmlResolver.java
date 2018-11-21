@@ -4,6 +4,7 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.security.AnyTypePermission;
 import com.thoughtworks.xstream.security.NoTypePermission;
 import com.yangb.weichatmanager.bean.event.*;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * weichatmanager
@@ -30,6 +31,7 @@ public class XmlResolver {
         xStream.alias("xml", LinkMsg.class);
         xStream.alias("xml", VideoMsg.class);
         xStream.alias("xml", VoiceMsg.class);
+        xStream.alias("xml", LocationEvent.class);
         xStream.alias("SendLocationInfo", MenuLocationEvent.SendLocationInfo.class);
         xStream.alias("PicList",MenuPicEvent.PicItem.class);
         xStream.alias("SendPicsInfo",MenuPicEvent.SendPicsInfo.class);
@@ -39,6 +41,9 @@ public class XmlResolver {
 
 
     public <V extends EventMsg> V parseToEventMsg(Class<V> v, String xml) {
+        if(StringUtils.isEmpty(xml)){
+            return null;
+        }
         V x = null;
         try {
             x = v.newInstance();

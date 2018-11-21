@@ -95,11 +95,13 @@ public class DispatcherManagement {
         if (StringUtils.isEmpty(event.getEvent())) {
             throw new RuntimeException("xml 解析错误");
         }
+        holder.getEventHandler();
         switch (event.getEvent()){
             case WechatConstant.EVENT_TYPE_CLICK:
                 return holder.getEventHandler().menuClick(xmlParser.parseToEventMsg(MenuClickEvent.class,xml));
             case WechatConstant.EVENT_TYPE_VIEW :
-                return holder.getEventHandler().menuView(xmlParser.parseToEventMsg(MenuClickEvent.class,xml));
+                holder.getEventHandler().menuView(xmlParser.parseToEventMsg(MenuClickEvent.class,xml));
+                return null;
             case WechatConstant.EVENT_TYPE_SCANCODE_PUSH:
                 return holder.getEventHandler().menuScancodePush(xmlParser.parseToEventMsg(MenuScancodeEvent.class,xml));
             case WechatConstant.EVENT_TYPE_SCANCODE_WAITMSG:
@@ -112,6 +114,14 @@ public class DispatcherManagement {
                 return holder.getEventHandler().menuPicWeixin(xmlParser.parseToEventMsg(MenuPicEvent.class,xml));
             case WechatConstant.EVENT_TYPE_LOCATION_SELECT:
                 return holder.getEventHandler().menuLocationSelect(xmlParser.parseToEventMsg(MenuLocationEvent.class,xml));
+            case WechatConstant.EVENT_TYPE_SUBSCRIBE:
+                return holder.getEventHandler().subscrib(event);
+            case WechatConstant.EVENT_TYPE_UNSUBSCRIBE:
+                holder.getEventHandler().unsubscrib(event);
+                return null;
+            case WechatConstant.EVENT_TYPE_LOCATION:
+                holder.getEventHandler().location(xmlParser.parseToEventMsg(LocationEvent.class,xml));
+                return null;
             default:
                 throw new IllegalArgumentException("不支持的事件类型:" + event.getEvent());
 
