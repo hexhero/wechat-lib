@@ -2,22 +2,23 @@ package com.yangb.weichatmanager.service;
 
 import com.yangb.weichatmanager.bean.WechatMenu;
 import com.yangb.weichatmanager.bean.WechatResult;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.yangb.weichatmanager.management.BeanFactory;
 
 /**
  * 菜单接口
  * create by YangBin on 2018/11/19
  * Copyright © 2017 YangBin. All rights reserved.
  */
-@Service
 public class MenuService {
 
-    @Autowired
     private TokenService tokenService;
 
-    @Autowired
     private WeChatHttpByFeign wechatHttp;
+
+    public MenuService(){
+        wechatHttp = BeanFactory.getInstance().getWechatHttp();
+        tokenService = BeanFactory.getInstance().getService(TokenService.class);
+    }
 
     /**
      * 创建菜单

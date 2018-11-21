@@ -1,5 +1,7 @@
 package com.yangb.weichatmanager.bean.event;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -7,7 +9,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  * create by YangBin on 2018/11/16
  * Copyright © 2017 YangBin. All rights reserved.
  */
-@XmlRootElement(name = "xml")
 public class EventMsg {
 
     /**
@@ -31,9 +32,22 @@ public class EventMsg {
     private String MsgType;
 
     /**
-     * 事件类型
+     * 事件类型(事件使用字段)
      */
     private String Event;
+
+    /**
+     * 消息Id(消息类型使用)
+     */
+    private String MsgId;
+
+    public String getMsgId() {
+        return MsgId;
+    }
+
+    public void setMsgId(String msgId) {
+        MsgId = msgId;
+    }
 
     public String getEvent() {
         return Event;

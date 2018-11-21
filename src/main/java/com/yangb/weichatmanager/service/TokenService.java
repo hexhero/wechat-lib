@@ -2,21 +2,23 @@ package com.yangb.weichatmanager.service;
 
 import com.yangb.weichatmanager.bean.AccessToken;
 import com.yangb.weichatmanager.common.WeChatAccount;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.yangb.weichatmanager.config.FeignConfig;
+import com.yangb.weichatmanager.management.BeanFactory;
 
 /**
  * TokenService 令牌服务
  * create by YangBin on 2018/11/16
  * Copyright © 2017 YangBin. All rights reserved.
  */
-@Service
 public class TokenService {
 
     private static AccessToken accessToken;
 
-    @Autowired
     private WeChatHttpByFeign wechatHttp;
+
+    public TokenService(){
+        wechatHttp = BeanFactory.getInstance().getWechatHttp();
+    }
 
     /**
      * 获取有效的 AccessToken

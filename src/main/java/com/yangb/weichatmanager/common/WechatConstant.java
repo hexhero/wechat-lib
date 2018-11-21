@@ -11,6 +11,13 @@ public class WechatConstant {
      * 消息类型
      */
     public static final String MSG_TYPE_EVENT = "event";
+    public static final String MSG_TYPE_TEXT = "text";
+    public static final String MSG_TYPE_IMAGE = "image";
+    public static final String MSG_TYPE_VOICE = "voice";
+    public static final String MSG_TYPE_VIDEO = "video";
+    public static final String MSG_TYPE_SHORTVIDEO = "shortvideo";
+    public static final String MSG_TYPE_LOCATION = "location";
+    public static final String MSG_TYPE_LINK = "link";
 
     /**
      * 自定义菜单事件推送  事件类型

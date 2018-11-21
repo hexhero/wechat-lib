@@ -12,6 +12,8 @@ public class HandlerHolder {
      */
     private EventHandler eventHandler;
 
+    private MsgHandler msgHandler;
+
     private static HandlerHolder holder;
 
     private HandlerHolder() {
@@ -32,8 +34,16 @@ public class HandlerHolder {
      * 注册事件处理器
      * @param handler
      */
-    public void registerEventHandler(EventHandler handler){
+    public void registEventHandler(EventHandler handler){
         this.eventHandler = handler;
+    }
+
+    /**
+     * 注册消息处理器
+     * @param handler
+     */
+    public void registMsgHandler(MsgHandler handler){
+        this.msgHandler = handler;
     }
 
     /**
@@ -44,7 +54,20 @@ public class HandlerHolder {
         return this.eventHandler != null;
     }
 
+    /**
+     * 是否存在消息处理器
+     * @return
+     */
+    public boolean hasMsgHandler(){
+        return this.msgHandler != null;
+    }
+
+
     public EventHandler getEventHandler(){
         return this.eventHandler;
+    }
+
+    public MsgHandler getMsgHandler() {
+        return msgHandler;
     }
 }

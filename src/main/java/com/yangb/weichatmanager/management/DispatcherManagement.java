@@ -2,21 +2,25 @@ package com.yangb.weichatmanager.management;
 
 import com.yangb.weichatmanager.bean.event.*;
 import com.yangb.weichatmanager.common.WechatConstant;
+import com.yangb.weichatmanager.util.MsgReplyHelper;
 import com.yangb.weichatmanager.util.XmlResolver;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang3.StringUtils;
+
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * 分发管理器
  * create by YangBin on 2018/11/20
  * Copyright © 2017 YangBin. All rights reserved.
  */
-@Component
 public class DispatcherManagement {
 
-    @Autowired
     private XmlResolver xmlParser;
+
+    public DispatcherManagement(){
+        xmlParser = BeanFactory.getInstance().getService(XmlResolver.class);
+    }
 
     HandlerHolder holder = HandlerHolder.getInstance();
 
@@ -39,6 +43,41 @@ public class DispatcherManagement {
                     return dispatchEvent(event, xml);
                 }
                 return null;
+            case WechatConstant.MSG_TYPE_TEXT:
+                if(holder.hasMsgHandler()){
+                    return holder.getMsgHandler().textMsg(xmlParser.parseToEventMsg(TextMsg.class,xml));
+                }
+                return defaultReply(event);
+            case WechatConstant.MSG_TYPE_IMAGE:
+                if(holder.hasMsgHandler()){
+                    return holder.getMsgHandler().imageMsg(xmlParser.parseToEventMsg(ImageMsg.class,xml));
+                }
+                return defaultReply(event);
+            case WechatConstant.MSG_TYPE_VOICE:
+                if(holder.hasMsgHandler()){
+                    return holder.getMsgHandler().voiceMsg(xmlParser.parseToEventMsg(VoiceMsg.class,xml));
+                }
+                return defaultReply(event);
+            case WechatConstant.MSG_TYPE_VIDEO:
+                if(holder.hasMsgHandler()){
+                    return holder.getMsgHandler().videoMsg(xmlParser.parseToEventMsg(VideoMsg.class,xml));
+                }
+                return defaultReply(event);
+            case WechatConstant.MSG_TYPE_SHORTVIDEO:
+                if(holder.hasMsgHandler()){
+                    return holder.getMsgHandler().shortvideoMsg(xmlParser.parseToEventMsg(VideoMsg.class,xml));
+                }
+                return defaultReply(event);
+            case WechatConstant.MSG_TYPE_LOCATION:
+                if(holder.hasMsgHandler()){
+                    return holder.getMsgHandler().locationMsg(xmlParser.parseToEventMsg(LocationMsg.class,xml));
+                }
+                return defaultReply(event);
+            case WechatConstant.MSG_TYPE_LINK:
+                if(holder.hasMsgHandler()){
+                    return holder.getMsgHandler().videoMsg(xmlParser.parseToEventMsg(VideoMsg.class,xml));
+                }
+                return defaultReply(event);
 
             default:
                 throw new IllegalArgumentException("不支持的消息类型: " + event.getMsgType());
@@ -81,6 +120,18 @@ public class DispatcherManagement {
 
     public EventMsg defaultReply(EventMsg eventMsg){
         //TODO 默认回复内容
-        return null;
+        EventMsg msg = MsgReplyHelper.preprocess(eventMsg);
+        TextMsg textMsg = new TextMsg();
+        try {
+            BeanUtils.copyProperties(textMsg,msg);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        textMsg.setMsgType("text");
+        textMsg.setCreateTime(System.currentTimeMillis()+"");
+        textMsg.setContent("reply default msg");
+        return textMsg;
     }
 }
