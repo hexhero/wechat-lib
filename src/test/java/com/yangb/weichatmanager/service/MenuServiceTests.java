@@ -1,6 +1,6 @@
 package com.yangb.weichatmanager.service;
 
-import com.alibaba.fastjson.JSON;
+import com.google.gson.Gson;
 import com.yangb.weichatmanager.bean.WechatMenu;
 import com.yangb.weichatmanager.bean.WechatResult;
 import org.junit.Test;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class MenuServiceTests {
 
-    MenuService menuService;
+    MenuService menuService = new MenuService();
 
     /**
      * 测试添加菜单
@@ -51,8 +51,8 @@ public class MenuServiceTests {
             }
 
         });
-
-        String json = JSON.toJSONString(wechaMenu);
+        Gson gson = new Gson();
+        String json = gson.toJson(wechaMenu);
         System.out.println(json);
 
         menuService.create(wechaMenu);
@@ -64,7 +64,7 @@ public class MenuServiceTests {
     @Test
     public void testQueryMenu(){
         WechatMenu wechatMenu = menuService.query();
-        System.out.println(JSON.toJSONString(wechatMenu));
+        System.out.println(new Gson().toJson(wechatMenu));
     }
 
     /**

@@ -1,12 +1,11 @@
 package com.yangb.weichatmanager.config;
 
-import com.netflix.hystrix.HystrixCommandProperties;
 import com.yangb.weichatmanager.service.WeChatHttpByFeign;
-import feign.Logger;
-import feign.hystrix.HystrixFeign;
-import feign.hystrix.SetterFactory;
-import feign.jackson.JacksonDecoder;
-import feign.jackson.JacksonEncoder;
+import feign.Feign;
+import feign.Request;
+import feign.Retryer;
+import feign.gson.GsonDecoder;
+import feign.gson.GsonEncoder;
 
 /**
  * weichatmanager
@@ -18,15 +17,11 @@ public class FeignConfig {
     private String wechatUrl = "https://api.weixin.qq.com";
 
     public WeChatHttpByFeign weChatHttpByFeign(){
-        return HystrixFeign.builder()
-                .decoder(new JacksonDecoder())
-                .encoder(new JacksonEncoder())
-                .setterFactory((target, method) ->
-                        new SetterFactory.Default().create(target, method).
-                                andCommandPropertiesDefaults(HystrixCommandProperties.defaultSetter().
-                                        withExecutionTimeoutInMilliseconds(10000)))
-                .logLevel(Logger.Level.FULL)
-                .logger(new Logger.JavaLogger().appendToFile("D:\\fegin.log"))
+        return Feign.builder()
+                .decoder(new GsonDecoder())
+                .encoder(new GsonEncoder())
+                .options(new Request.Options(3000,5000))
+                .retryer(new Retryer.Default(5000,5000,3))
                 .target(WeChatHttpByFeign.class, this.wechatUrl);
 
     }
