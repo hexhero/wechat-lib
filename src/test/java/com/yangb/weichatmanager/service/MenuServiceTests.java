@@ -20,26 +20,26 @@ public class MenuServiceTests {
         menu.setButton(new ArrayList<>());
         menu.getButton().add(new WechatMenu.Button(){
             {
-                setName("misyang");
+                setName("普通菜单");
             }
             public String type = "click";
             public String key = "V100123";
         });
         menu.getButton().add(new WechatMenu.Button(){
             {
-                setName("个");
+                setName("普通");
 
                 setSub_button(new ArrayList<>());
                 getSub_button().add(new WechatMenu.Button(){
                     {
-                        setName("性");
+                        setName("菜");
                     }
                     public String type = "click";
                     public String key = "V100124";
                 });
                 getSub_button().add(new WechatMenu.Button(){
                     {
-                        setName("化");
+                        setName("单");
                     }
                     public String type = "click";
                     public String key = "V100125";
@@ -48,7 +48,8 @@ public class MenuServiceTests {
         });
 
 
-        menuService.create(menu);
+        WechatResult result =  menuService.create(menu);
+        System.out.println(result.getErrmsg());
     }
 
     /**
@@ -57,6 +58,7 @@ public class MenuServiceTests {
     @Test
     public void testQueryMenu(){
         WechatMenu wechatMenu = menuService.query();
+        System.out.println(1);
     }
 
     /**
@@ -111,7 +113,7 @@ public class MenuServiceTests {
      */
     @Test
     public void testDelconditional(){
-        WechatResult wechatResult = menuService.delConditional("426321085");
+        WechatResult wechatResult = menuService.delConditional("426321723");
         System.out.println(wechatResult.getErrmsg());
     }
 }
